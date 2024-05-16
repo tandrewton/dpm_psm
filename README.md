@@ -1,9 +1,15 @@
 # dpm_psm
 minimal example for 2024 PSM paper
 
-Compilation command: g++ -O3 --std=c++11 -g -I src main/cell/psm2D.cpp src/dpm.cpp src/cell.cpp -o main/cell/psm2D.o
+# Notes
+To use this directory, please follow the following instructions to run a minimal simulation.
+Contact O'Hern Lab or Andrew Ton for more help, but this is a full simulation example.
+Simulation processing code will not be made available in general, please refer to the output streams in the cpp files to format the data in your preferred manner.
 
-#Example of a script that will generate an array of run commands for various parameter choices
+# Compilation command: 
+g++ -O3 --std=c++11 -g -I src main/cell/psm2D.cpp src/dpm.cpp src/cell.cpp -o main/cell/psm2D.o
+
+# Example of a script that will generate an array of run commands for various parameter choices
 
 att_arr=(0.05)
 att2_arr=(0.05)
