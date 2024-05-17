@@ -3,10 +3,9 @@ minimal example for 2024 PSM paper
 
 # Notes
 To use this directory, please follow the following instructions to run a minimal simulation.
-Contact O'Hern Lab or Andrew Ton for more help, but this is a full simulation example.
 Simulation processing code will not be made available in general, please refer to the output streams in the cpp files to format the data in your preferred manner.
 
-# Compilation command: 
+# Compilation command:
 g++ -O3 --std=c++11 -g -I src main/cell/psm2D.cpp src/dpm.cpp src/cell.cpp -o main/cell/psm2D.o
 
 # Example of a script that will generate an array of run commands for various parameter choices
@@ -32,9 +31,7 @@ for att in ${att_arr[@]}; do
           for k_on in ${kon_arr[@]}; do
             for k_off in ${koff_arr[@]}; do
               k_ecm=$att2
-              #for k_ecm in ${kecm_arr[@]}; #do
               echo "./main/cell/psm2D.o   12  16 1.0 $phi $kl $ka $kb $att $att2 $t_stress    $v0    $tau_abp  $gamma $k_on $k_off $k_ecm $calcMinPos 1    50 testa_"$att"_a2_"$att2"_tm_"$t_stress"_p_"$phi"_t_"$tau_abp"_gamma_"$gamma"_k_on_"$k_on"_k_off_"$k_off"_k_ecm_"$k_ecm
-              #done
             done
           done
         done
