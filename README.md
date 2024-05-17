@@ -37,20 +37,35 @@ kb=0.01
 calcMinPos=1
 
 for att in ${att_arr[@]}; do
+
   for att2 in ${att2_arr[@]}; do
+
     for phi in ${phi_arr[@]}; do
+
       for t_stress in ${t_stress_arr[@]}; do
+
         for gamma in ${gamma_arr[@]}; do
+
           for k_on in ${kon_arr[@]}; do
+
             for k_off in ${koff_arr[@]}; do
+
               k_ecm=$att2
+
               echo "./main/cell/psm2D.o   12  16 1.0 $phi $kl $ka $kb $att $att2 $t_stress    $v0    $tau_abp  $gamma $k_on $k_off $k_ecm $calcMinPos 1    50 testa_"$att"_a2_"$att2"_tm_"$t_stress"_p_"$phi"_t_"$tau_abp"_gamma_"$gamma"_k_on_"$k_on"_k_off_"$k_off"_k_ecm_"$k_ecm
+
             done
+
           done
+
         done
+
       done
+
     done
+
   done
+
 done
 
 # an actual run command for a single simulation:
