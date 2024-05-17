@@ -3199,7 +3199,7 @@ void cell::vertexDampedMD(dpmMemFn forceCall, double dt0, double duration, doubl
     CALL_MEMBER_FN(*this, forceCall)
     ();
 
-    /*// overdamped integration update (Euler)
+    // overdamped integration update (Euler)
     for (i = 0; i < vertDOF; i++) {
       v[i] = F[i] / B;  // solely used for energy calculation purposes, serves no integration purpose
       x[i] += v[i] * dt;
@@ -3208,9 +3208,9 @@ void cell::vertexDampedMD(dpmMemFn forceCall, double dt0, double duration, doubl
         x[i] -= L[i % NDIM];
       else if (x[i] < 0 && pbc[i % NDIM])
         x[i] += L[i % NDIM];
-    }*/
+    }
 
-    x_original = x;
+    /*x_original = x;
     // RK2 integration update first half
     for (i = 0; i < vertDOF; i++) {
       k1[i] = dt * F[i] / B;
@@ -3225,7 +3225,7 @@ void cell::vertexDampedMD(dpmMemFn forceCall, double dt0, double duration, doubl
     for (i = 0; i < vertDOF; i++) {
       k1[i] = dt * F[i] / B;
       x[i] = x_original[i] + k1[i];
-    }
+    }*/
 
     // update sim clock
     simclock += dt;

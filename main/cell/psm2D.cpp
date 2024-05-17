@@ -1,12 +1,3 @@
-// simulate transverse section, focusing on tissue structure
-// 2D justification: cells don't move much in the Anterior-Posterior plane of the PSM
-//   the measurements are taken in the 2D transverse section, so a 2D simulation would help
-//   our understanding of tissue structure in those same 2D sections.
-// Scientific question: Why do cells gain extracellular space in cadherin AND/OR fibronectin/fibrillin mutants?
-//  cadherin mutants lose intercellular adhesion. fN/fbn mutants lose cell-ECM adhesion.
-// My understanding - cell-ECM adhesion acts as a compression. The ECM proteins link up with the actin skeleton
-//   of cells on the boundary of the PSM. This causes action like a purse-string at the boundary of the tissue
-//   which might explain why PSM is rounded up like a cylinder.
 /*
 Compilation command:
 g++ -O3 --std=c++11 -g -I src main/cell/psm2D.cpp src/dpm.cpp src/cell.cpp -o main/cell/psm2D.o
@@ -33,9 +24,7 @@ for att in ${att_arr[@]}; do
           for k_on in ${kon_arr[@]}; do
             for k_off in ${koff_arr[@]}; do
               k_ecm=$att2
-              #for k_ecm in ${kecm_arr[@]}; #do
               echo "./main/cell/psm2D.o   12  16 1.0 $phi $kl $ka $kb $att $att2 $t_stress    $v0    $tau_abp  $gamma $k_on $k_off $k_ecm $calcMinPos 1    50 testa_"$att"_a2_"$att2"_tm_"$t_stress"_p_"$phi"_t_"$tau_abp"_gamma_"$gamma"_k_on_"$k_on"_k_off_"$k_off"_k_ecm_"$k_ecm
-              #done
             done
           done
         done
@@ -44,7 +33,7 @@ for att in ${att_arr[@]}; do
   done
 done
 */
-//                NCELLS NV  A0  phi att att2 t_maxwell_bd v0  tau_abp gamma k_on k_off k_ecm calcMinPos seed duration outFileStem
+//                NCELLS NV  A0  phi kl ka kb att att2 t_maxwell_bd v0  tau_abp gamma k_on k_off k_ecm calcMinPos seed duration outFileStem
 
 #include <sstream>
 #include "cell.h"
@@ -65,7 +54,7 @@ const bool plotCompression = 0;     // whether or not to plot configuration duri
 const double dphi0 = 0.005;         // packing fraction increment
 const double kc = 1.0;              // interaction force spring constant (should be unit)
 const double boxLengthScale = 2.5;  // neighbor list box size in units of initial l0
-const double dt0 = 0.01;  // initial magnitude of time step in units of MD time
+const double dt0 = 0.01;            // initial magnitude of time step in units of MD time
 const double Ptol = 1e-5;
 const double Ftol = 1e-3;
 const double att_range = 0.3;
@@ -109,9 +98,7 @@ int main(int argc, char const* argv[]) {
   cell2D.setkoff(k_off);
   cell2D.setkecm(10 * k_ecm);
   cell2D.setB(B);
-  if (t_stress > 0.0)
-    cell2D.setMaxwellRelaxationTime(t_stress);  // t_stress is infinity unless this is uncommented
-  cell2D.setpbc(0, false);                      //  specify non-periodic boundaries
+  cell2D.setpbc(0, false);  //  specify non-periodic boundaries
   cell2D.setpbc(1, false);
   cell2D.setl1(att);  // set adhesion scales
   cell2D.setl2(att_range);
@@ -196,7 +183,7 @@ int main(int argc, char const* argv[]) {
   cell2D.setitmax(1e4);
   cell2D.vertexDampedMD(attractionSmoothActiveBrownianECMBondsUpdate, dt0, runTime, 5.0, v0_decay_rate * v0_abp, v0_min);
 
-  bool testingSteadyState = false;
+  /*bool testingSteadyState = false;
 
   if (testingSteadyState) {
     cell2D.setl1(0);
@@ -204,7 +191,7 @@ int main(int argc, char const* argv[]) {
 
     cell2D.setl1(att);
     cell2D.vertexDampedMD(attractionSmoothActiveBrownianECMBondsUpdate, dt0, runTime, 5.0, v0_decay_rate * v0_abp, v0_min);
-  }
+  }*/
 
   cout
       << "\n** Finished psm.cpp (2D transverse section of pre-somitic mesoderm), ending. " << endl;
