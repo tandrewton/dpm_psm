@@ -11,18 +11,31 @@ g++ -O3 --std=c++11 -g -I src main/cell/psm2D.cpp src/dpm.cpp src/cell.cpp -o ma
 # Example of a script that will generate an array of run commands for various parameter choices
 
 att_arr=(0.05)
+
 att2_arr=(0.05)
+
 t_stress_arr=(10000.0)
+
 v0=0.1
+
 phi_arr=(0.8)
+
 tau_abp=1.0
+
 gamma_arr=(0)
+
 kon_arr=(1.0)
+
 koff_arr=(0.5)
+
 kl=0.5
+
 ka=(5.0)
+
 kb=0.01
+
 calcMinPos=1
+
 for att in ${att_arr[@]}; do
   for att2 in ${att2_arr[@]}; do
     for phi in ${phi_arr[@]}; do
